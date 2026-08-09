@@ -1449,7 +1449,7 @@ function saveSettings() {
  * Worker (worker/src/index.js in this repo): it streams the asset through and
  * adds the header, refusing anything outside the thingino firmware allow-list.
  * Listing releases needs no hop - api.github.com does send CORS. */
-var FW_PROXY = 'https://thingino-dfu-fw.gtxent.workers.dev/fw';
+var FW_PROXY = 'https://thingino-dfu-fw.thingino.workers.dev/fw';
 
 var relAssets = {}; /* tag -> assets[] from the releases API */
 var relLoaded = false;

@@ -44,7 +44,7 @@ npx wrangler deploy     # from this directory
 npx wrangler tail       # live logs
 ```
 
-Deployed at `https://thingino-dfu-fw.gtxent.workers.dev`, which is what
+Deployed at `https://thingino-dfu-fw.thingino.workers.dev`, which is what
 `FW_PROXY` in `web/src/app.js` points to.
 
 It is deliberately its own Worker rather than a route bolted onto
