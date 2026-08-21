@@ -1036,9 +1036,14 @@ function setDebug(on) {
     if (s) s.checked = debugEnabled;
     /* Module is module-scoped (this file is an ES module), so it is NOT on
      * window - reaching for window.Module here silently did nothing, and the
-     * C-side [DEBUG] lines only ever came back after a page reload. */
+     * C-side [DEBUG] lines only ever came back after a page reload.
+     *
+     * Go through wasmCall, not a bare ccall: the module is built ASYNCIFY=1 and
+     * every entry is serialized on wasmBusy, so a flip made while a transfer is
+     * suspended queues until it finishes instead of re-entering the module. */
     if (Module && Module.ccall) {
-        try { Module.ccall('tdfu_web_set_debug', null, ['number'], [debugEnabled ? 1 : 0]); } catch (e) { /* not ready */ }
+        wasmCall('tdfu_web_set_debug', null, ['number'], [debugEnabled ? 1 : 0])
+            .catch(function () { /* module not ready */ });
     }
     log('Debug logging ' + (debugEnabled ? 'enabled' : 'disabled'));
 }
