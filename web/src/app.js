@@ -1022,8 +1022,11 @@ function setDebug(on) {
     localStorage.setItem('tdfu_debug', debugEnabled ? '1' : '0');
     var s = document.getElementById('setting-debug');
     if (s) s.checked = debugEnabled;
-    if (window.Module && window.Module.ccall) {
-        try { window.Module.ccall('tdfu_web_set_debug', null, ['number'], [debugEnabled ? 1 : 0]); } catch (e) { /* not ready */ }
+    /* Module is module-scoped (this file is an ES module), so it is NOT on
+     * window - reaching for window.Module here silently did nothing, and the
+     * C-side [DEBUG] lines only ever came back after a page reload. */
+    if (Module && Module.ccall) {
+        try { Module.ccall('tdfu_web_set_debug', null, ['number'], [debugEnabled ? 1 : 0]); } catch (e) { /* not ready */ }
     }
     log('Debug logging ' + (debugEnabled ? 'enabled' : 'disabled'));
 }
