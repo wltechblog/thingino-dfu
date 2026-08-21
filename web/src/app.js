@@ -522,7 +522,7 @@ async function connectDevice() {
         if (info.stage === 0) {
             var refined = await wasmCall('tdfu_web_detect_soc', 'string', ['number'], [0]);
             if (refined && refined !== info.variantName) {
-                log('SoC probe: ' + refined.toUpperCase());
+                log('SoC probe: ' + refined.toUpperCase(), 'debug');
                 info.variantName = refined;
                 info.variant = await wasmCall('tdfu_variant_from_string', 'number', ['string'], [refined]);
             }

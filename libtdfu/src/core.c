@@ -156,10 +156,10 @@ static int web_dfu_resolve_alt(int device_index, const char *alt_name) {
         LOG_ERROR("DFU probe failed: %s\n", tdfu_error_to_string(pr));
         return -1;
     }
-    LOG_INFO("DFU probe ok: %d alt setting(s), transfer size %u, DFU %x.%02x\n", info.alt_count, info.transfer_size,
-             (info.bcd_dfu >> 8) & 0xff, info.bcd_dfu & 0xff);
+    LOG_DEBUG("DFU probe ok: %d alt setting(s), transfer size %u, DFU %x.%02x\n", info.alt_count, info.transfer_size,
+              (info.bcd_dfu >> 8) & 0xff, info.bcd_dfu & 0xff);
     for (int i = 0; i < info.alt_count; i++)
-        LOG_INFO("  alt %d: \"%s\"\n", info.alts[i].alt, info.alts[i].name);
+        LOG_DEBUG("  alt %d: \"%s\"\n", info.alts[i].alt, info.alts[i].name);
 
     if (alt_name && alt_name[0]) {
         int a = tdfu_dfu_find_alt(&info, alt_name);
@@ -174,8 +174,7 @@ static int web_dfu_resolve_alt(int device_index, const char *alt_name) {
      * alt 0 = flash - the web UI only ever writes the boot-flash image. (WebUSB
      * can't read the iInterface strings, so the names log as "".) */
     if (info.alt_count > 1)
-        LOG_INFO("Device exposes %d alt settings; using alt %d (boot flash)\n",
-                 info.alt_count, info.alts[0].alt);
+        LOG_DEBUG("Device exposes %d alt settings; using alt %d (boot flash)\n", info.alt_count, info.alts[0].alt);
     return info.alts[0].alt;
 }
 

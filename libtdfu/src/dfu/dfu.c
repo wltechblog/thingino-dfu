@@ -564,7 +564,7 @@ tdfu_error_t tdfu_dfu_write_device(usb_device_t *dev, int alt, const char *path)
         return r;
     }
 
-    LOG_INFO("DFU download: %s -> alt %d (%zu bytes, %u-byte blocks)\n", path, alt, len, info.transfer_size);
+    LOG_DEBUG("DFU download: %s -> alt %d (%zu bytes, %u-byte blocks)\n", path, alt, len, info.transfer_size);
 
     /* A reload mid-transfer can leave U-Boot expecting a stale block sequence.
      * The first block-0 write trips its cleanup + STALL, so on a block-0 failure
@@ -1128,7 +1128,7 @@ const char *tdfu_dfu_variant_dir(tdfu_variant_t v) {
  * JNI (which provides its own fd-wrapped device). */
 tdfu_error_t tdfu_dfu_bootstrap_device(usb_device_t *dev, const uint8_t *spl, size_t spl_len, const uint8_t *uboot,
                                        size_t uboot_len) {
-    LOG_INFO("stage1: %zu bytes -> 0x%08x (entry 0x%08x)\n", spl_len, DFU_SPL_ADDR, DFU_SPL_ENTRY);
+    LOG_DEBUG("stage1: %zu bytes -> 0x%08x (entry 0x%08x)\n", spl_len, DFU_SPL_ADDR, DFU_SPL_ENTRY);
     tdfu_error_t r = bootstrap_load_data_to_memory(dev, spl, spl_len, DFU_SPL_ADDR);
     if (r != TDFU_SUCCESS)
         return r;
@@ -1139,7 +1139,7 @@ tdfu_error_t tdfu_dfu_bootstrap_device(usb_device_t *dev, const uint8_t *spl, si
     /* stage1 brings up clk+DDR and returns to the bootrom; let it settle. */
     tdfu_sleep_milliseconds(1000);
 
-    LOG_INFO("stage2 U-Boot: %zu bytes -> 0x%08x\n", uboot_len, DFU_UBOOT_ADDR);
+    LOG_DEBUG("stage2 U-Boot: %zu bytes -> 0x%08x\n", uboot_len, DFU_UBOOT_ADDR);
     r = bootstrap_load_data_to_memory(dev, uboot, uboot_len, DFU_UBOOT_ADDR);
     if (r != TDFU_SUCCESS)
         return r;
@@ -1148,6 +1148,17 @@ tdfu_error_t tdfu_dfu_bootstrap_device(usb_device_t *dev, const uint8_t *spl, si
     LOG_INFO("U-Boot starting; device will re-enumerate in DFU mode\n");
     return TDFU_SUCCESS;
 }
+
+/* Which loader the SoC detection picked. The web app logs its own
+ * "DFU bootstrap for <SOC>..." line (and a custom SPL+U-Boot equivalent) before
+ * calling in, so this doubles up there - and the custom paths it would print are
+ * MEMFS temporaries that mean nothing to the user. On the CLI and the daemon it
+ * is the only record of the chosen loader family, so keep it at INFO. */
+#ifdef __EMSCRIPTEN__
+#define LOG_BOOTSTRAP_PICK LOG_DEBUG
+#else
+#define LOG_BOOTSTRAP_PICK LOG_INFO
+#endif
 
 tdfu_error_t tdfu_dfu_bootstrap(usb_manager_t *manager, int device_index, const char *firmware_dir,
                                 const char *force_cpu, const char *spl_override, const char *uboot_override) {
@@ -1180,7 +1191,7 @@ tdfu_error_t tdfu_dfu_bootstrap(usb_manager_t *manager, int device_index, const 
     if (explicit_files) {
         snprintf(spl_path, sizeof(spl_path), "%s", spl_override);
         snprintf(uboot_path, sizeof(uboot_path), "%s", uboot_override);
-        LOG_INFO("DFU bootstrap: --spl %s + --uboot %s\n", spl_path, uboot_path);
+        LOG_BOOTSTRAP_PICK("DFU bootstrap: --spl %s + --uboot %s\n", spl_path, uboot_path);
     } else {
         if (force_cpu) {
             variant = tdfu_variant_from_string(force_cpu);
@@ -1194,7 +1205,7 @@ tdfu_error_t tdfu_dfu_bootstrap(usb_manager_t *manager, int device_index, const 
             }
         }
         const char *name = tdfu_dfu_variant_dir(variant);
-        LOG_INFO("DFU bootstrap: SoC %s\n", name);
+        LOG_BOOTSTRAP_PICK("DFU bootstrap: SoC %s\n", name);
         /* Capped XBurst1 SoCs (T10/T20/T21/T30) USB-boot a TPL as stage1: it
          * brings up DDR in cache-as-RAM and returns to the bootrom, just like a
          * big-SPL SoC's SPL does. Their DRAM-resident SPL is NOR-only and unused
