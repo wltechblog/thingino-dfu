@@ -10,6 +10,7 @@ I18N.add("en", {
   title_mode: "Active backend",
   title_help_toggle: "Toggle help balloons",
   title_settings: "Settings",
+  title_settings_busy: "Finish the current operation before changing settings",
   op_warning: "Do not disconnect the device or navigate away during this operation",
 
   // device / connect

@@ -10,6 +10,7 @@ I18N.add("ar", {
   title_mode: "الواجهة الخلفية النشطة",
   title_help_toggle: "تبديل فقاعات المساعدة",
   title_settings: "الإعدادات",
+  title_settings_busy: "أنهِ العملية الحالية قبل تغيير الإعدادات",
   op_warning: "لا تفصل الجهاز ولا تغادر الصفحة أثناء هذه العملية",
 
   // device / connect

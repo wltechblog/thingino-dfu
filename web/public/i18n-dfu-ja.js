@@ -7,6 +7,7 @@ I18N.add("ja", {
   title_mode: "使用中のバックエンド",
   title_help_toggle: "ヘルプ吹き出しの表示切り替え",
   title_settings: "設定",
+  title_settings_busy: "設定を変更する前に、実行中の操作を完了してください",
   op_warning: "この操作の実行中は、デバイスを取り外したりページを移動したりしないでください",
 
   // device / connect

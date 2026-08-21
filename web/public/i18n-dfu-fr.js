@@ -7,6 +7,7 @@ I18N.add("fr", {
   title_mode: "Backend actif",
   title_help_toggle: "Afficher/masquer les bulles d'aide",
   title_settings: "Paramètres",
+  title_settings_busy: "Terminez l'opération en cours avant de modifier les paramètres",
   op_warning: "Ne débranchez pas l'appareil et ne quittez pas la page pendant cette opération",
 
   // device / connect

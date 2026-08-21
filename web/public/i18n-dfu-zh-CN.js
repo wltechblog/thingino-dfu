@@ -7,6 +7,7 @@ I18N.add("zh-CN", {
   title_mode: "当前后端",
   title_help_toggle: "切换帮助气泡",
   title_settings: "设置",
+  title_settings_busy: "请先完成当前操作，再更改设置",
   op_warning: "操作进行期间，请勿断开设备连接或离开此页面",
 
   // device / connect

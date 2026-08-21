@@ -7,6 +7,7 @@ I18N.add("de", {
   title_mode: "Aktives Backend",
   title_help_toggle: "Hilfe-Sprechblasen umschalten",
   title_settings: "Einstellungen",
+  title_settings_busy: "Beenden Sie den laufenden Vorgang, bevor Sie Einstellungen ändern",
   op_warning: "Das Gerät während dieses Vorgangs nicht trennen und die Seite nicht verlassen",
 
   // device / connect

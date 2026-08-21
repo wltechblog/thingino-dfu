@@ -10,6 +10,7 @@ I18N.add("it", {
   title_mode: "Backend attivo",
   title_help_toggle: "Attiva/disattiva i fumetti di aiuto",
   title_settings: "Impostazioni",
+  title_settings_busy: "Completa l'operazione in corso prima di modificare le impostazioni",
   op_warning: "Non scollegare il dispositivo e non uscire dalla pagina durante questa operazione",
 
   // device / connect

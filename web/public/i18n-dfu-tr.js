@@ -10,6 +10,7 @@ I18N.add("tr", {
   title_mode: "Etkin arka uç",
   title_help_toggle: "Yardım balonlarını aç/kapat",
   title_settings: "Ayarlar",
+  title_settings_busy: "Ayarları değiştirmeden önce geçerli işlemi tamamlayın",
   op_warning: "Bu işlem sırasında cihazın bağlantısını kesmeyin veya sayfadan ayrılmayın",
 
   // device / connect

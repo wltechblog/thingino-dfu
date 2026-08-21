@@ -10,6 +10,7 @@ I18N.add("nl", {
   title_mode: "Actieve backend",
   title_help_toggle: "Hulpballonnen in-/uitschakelen",
   title_settings: "Instellingen",
+  title_settings_busy: "Voltooi de huidige bewerking voordat u instellingen wijzigt",
   op_warning: "Koppel het apparaat niet los en verlaat deze pagina niet tijdens deze bewerking",
 
   // device / connect

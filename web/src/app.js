@@ -211,6 +211,18 @@ function setState(state) {
     var canBoot = hasDevice && !busy && !inDfuMode;
     var canRW = hasDevice && !busy && inDfuMode;
 
+    // Settings is gated like every other action: saving it can switch backend,
+    // which resets the state machine and disconnects a live remote transfer
+    // mid-flash. A disabled button emits no hover events, so the "wait" tooltip
+    // goes on the wrapper span; the balloon (data-help) resolves it either way.
+    var settingsBtn = document.getElementById('btn-settings');
+    if (settingsBtn) settingsBtn.disabled = busy;
+    var settingsWrap = document.getElementById('btn-settings-wrap');
+    if (settingsWrap) {
+        if (busy) settingsWrap.setAttribute('title', window.I18N ? I18N.t('title_settings_busy') : '');
+        else settingsWrap.removeAttribute('title');
+    }
+
     document.getElementById('btn-connect').disabled = busy;
     document.getElementById('btn-bootstrap').disabled = !canBoot;
     document.getElementById('btn-write').disabled = !canRW;

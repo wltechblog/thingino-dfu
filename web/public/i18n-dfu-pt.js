@@ -7,6 +7,7 @@ I18N.add("pt", {
   title_mode: "Backend ativo",
   title_help_toggle: "Alternar balões de ajuda",
   title_settings: "Definições",
+  title_settings_busy: "Conclua a operação atual antes de alterar as definições",
   op_warning: "Não desligue o dispositivo nem saia da página durante esta operação",
 
   // device / connect

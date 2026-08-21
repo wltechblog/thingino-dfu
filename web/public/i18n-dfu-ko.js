@@ -10,6 +10,7 @@ I18N.add("ko", {
   title_mode: "활성 백엔드",
   title_help_toggle: "도움말 풍선 켜기/끄기",
   title_settings: "설정",
+  title_settings_busy: "설정을 변경하기 전에 진행 중인 작업을 완료하세요",
   op_warning: "이 작업 중에는 장치를 분리하거나 페이지를 벗어나지 마세요",
 
   // device / connect

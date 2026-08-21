@@ -10,6 +10,7 @@ I18N.add("pl", {
   title_mode: "Aktywny backend",
   title_help_toggle: "Przełącz dymki pomocy",
   title_settings: "Ustawienia",
+  title_settings_busy: "Zakończ bieżącą operację przed zmianą ustawień",
   op_warning: "Nie odłączaj urządzenia ani nie opuszczaj strony podczas tej operacji",
 
   // device / connect
