@@ -896,6 +896,11 @@ async function doDfuWrite() {
     if (!firmwareData) { log('Select a firmware file first', 'warn'); return; }
     if (!inDfuMode) { log('Not a DFU device — bootstrap into DFU mode first', 'warn'); return; }
     setState('writing');
+    /* Snapshot the flashing options. The transfer below is a minutes-long await
+     * with a live event loop, and these are module-scope globals - reading them
+     * afterwards lets a change made mid-write retarget an operation that is
+     * already running. The image is staged the same way, just below. */
+    var doVerify = verifyAfterWrite, doReboot = rebootAfterWrite;
     showProgressBusy('Writing flash via DFU...');
     log('DFU download: ' + firmwareFileName + ' (' + firmwareData.length + ' bytes)...');
     try {
@@ -908,7 +913,7 @@ async function doDfuWrite() {
         }
         log('Firmware written via DFU!');
         // Verify: read the flash back and compare against the same staged image.
-        if (verifyAfterWrite) {
+        if (doVerify) {
             showProgressBusy('Verifying flash via DFU...');
             log('DFU verify: reading back ' + firmwareData.length + ' bytes...');
             var vrc = await wasmCall('tdfu_web_dfu_verify', 'number',
@@ -923,7 +928,7 @@ async function doDfuWrite() {
             try { Module.FS.unlink('/tmp/dfu-wr.bin'); } catch (e) { /* ignore */ }
             showProgress(100, 'Write complete');
         }
-        if (rebootAfterWrite) {
+        if (doReboot) {
             log('Rebooting the device...');
             try { await wasmCall('tdfu_web_reboot', 'number', ['number'], [0]); log('Reboot triggered'); }
             catch (e) { log('Reboot failed: ' + e, 'warn'); }
@@ -1350,14 +1355,19 @@ async function doRemoteWrite(data) {
      * would sit waiting for one that never answers. Fail fast, don't hang. */
     if (!inDfuMode) { log('Not a DFU device — bootstrap into DFU mode first', 'warn'); return; }
     setState('writing');
+    /* Snapshot the flashing options. The transfer below is a minutes-long await
+     * with a live event loop, and these are module-scope globals - reading them
+     * afterwards lets a change made mid-write retarget an operation that is
+     * already running. The image is staged the same way, just below. */
+    var doVerify = verifyAfterWrite, doReboot = rebootAfterWrite;
     showProgressBusy('Writing flash via daemon...');
-    log('Remote write (' + data.length + ' bytes)' + (verifyAfterWrite ? ' + verify...' : '...'));
+    log('Remote write (' + data.length + ' bytes)' + (doVerify ? ' + verify...' : '...'));
     try {
-        var ok = await remoteClient.writeFirmware(selectedRemoteIndex, detectedVariantName, data, verifyAfterWrite);
+        var ok = await remoteClient.writeFirmware(selectedRemoteIndex, detectedVariantName, data, doVerify);
         if (!ok) { log('Remote write failed.', 'error'); hideProgress(); setState('error'); return; }
-        showProgress(100, verifyAfterWrite ? 'Write + verify complete' : 'Write complete');
-        log('Remote write complete.' + (verifyAfterWrite ? ' Verify OK.' : ''));
-        if (rebootAfterWrite) {
+        showProgress(100, doVerify ? 'Write + verify complete' : 'Write complete');
+        log('Remote write complete.' + (doVerify ? ' Verify OK.' : ''));
+        if (doReboot) {
             log('Rebooting the device (remote)...');
             try { await remoteClient.reboot(selectedRemoteIndex); log('Reboot triggered'); }
             catch (e) { log('Reboot failed: ' + e.message, 'warn'); }
