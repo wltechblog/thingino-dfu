@@ -87,7 +87,7 @@ int remote_connect(const char *host, int port, const char *token) {
         wsa_initialized = 1;
     }
 #endif
-    struct addrinfo hints = {.ai_family = AF_INET, .ai_socktype = SOCK_STREAM};
+    struct addrinfo hints = {.ai_family = AF_UNSPEC, .ai_socktype = SOCK_STREAM};
     struct addrinfo *result;
     char port_str[16];
     snprintf(port_str, sizeof(port_str), "%d", port);
@@ -97,21 +97,27 @@ int remote_connect(const char *host, int port, const char *token) {
         return -1;
     }
 
-    remote_fd = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
-    if (remote_fd < 0) {
-        freeaddrinfo(result);
-        return -1;
-    }
-
-    if (connect(remote_fd, result->ai_addr, result->ai_addrlen) < 0) {
-        fprintf(stderr, "Failed to connect to %s:%d\n", host, port);
-        CLOSE_SOCKET(remote_fd);
-        remote_fd = -1;
-        freeaddrinfo(result);
-        return -1;
+    /* Try each address getaddrinfo returned. It orders IPv6 ahead of IPv4 per
+     * RFC 6724, so this prefers v6 and only falls back to v4 when v6 does not
+     * connect - a dual-stacked host works either way. */
+    remote_fd = -1;
+    for (struct addrinfo *rp = result; rp != NULL; rp = rp->ai_next) {
+        int fd = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
+        if (fd < 0)
+            continue;
+        if (connect(fd, rp->ai_addr, rp->ai_addrlen) == 0) {
+            remote_fd = fd;
+            break;
+        }
+        CLOSE_SOCKET(fd);
     }
 
     freeaddrinfo(result);
+
+    if (remote_fd < 0) {
+        fprintf(stderr, "Failed to connect to %s:%d\n", host, port);
+        return -1;
+    }
 
     /* Send auth handshake if token provided */
     if (token) {

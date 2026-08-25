@@ -36,6 +36,7 @@ typedef int socklen_t;
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <strings.h> /* strncasecmp */
 #define CLOSE_SOCKET close
 #endif
@@ -1059,9 +1060,17 @@ int main(int argc, char **argv) {
     signal(SIGPIPE, SIG_IGN);
 #endif
 
-    /* Create listening socket */
+    /* Create listening socket. Prefer AF_INET6 with IPV6_V6ONLY cleared so one
+     * socket serves both families - IPv4 peers arrive as v4-mapped addresses.
+     * Only fall back to AF_INET where IPv6 is unavailable. */
     int server_fd;
-    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    bool server_v6 = true;
+
+    server_fd = socket(AF_INET6, SOCK_STREAM, 0);
+    if (server_fd < 0) {
+        server_v6 = false;
+        server_fd = socket(AF_INET, SOCK_STREAM, 0);
+    }
     if (server_fd < 0) {
         perror("socket");
         return 1;
@@ -1070,13 +1079,27 @@ int main(int argc, char **argv) {
     int opt = 1;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, (const char *)&opt, sizeof(opt));
 
-    struct sockaddr_in addr = {
-        .sin_family = AF_INET,
-        .sin_port = htons(port),
-        .sin_addr.s_addr = INADDR_ANY,
-    };
+    int bind_rc;
+    if (server_v6) {
+        int v6only = 0;
+        setsockopt(server_fd, IPPROTO_IPV6, IPV6_V6ONLY, (const char *)&v6only, sizeof(v6only));
 
-    if (bind(server_fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+        struct sockaddr_in6 addr6 = {
+            .sin6_family = AF_INET6,
+            .sin6_port = htons(port),
+            .sin6_addr = IN6ADDR_ANY_INIT,
+        };
+        bind_rc = bind(server_fd, (struct sockaddr *)&addr6, sizeof(addr6));
+    } else {
+        struct sockaddr_in addr = {
+            .sin_family = AF_INET,
+            .sin_port = htons(port),
+            .sin_addr.s_addr = INADDR_ANY,
+        };
+        bind_rc = bind(server_fd, (struct sockaddr *)&addr, sizeof(addr));
+    }
+
+    if (bind_rc < 0) {
         perror("bind");
         CLOSE_SOCKET(server_fd);
         return 1;
@@ -1094,14 +1117,18 @@ int main(int argc, char **argv) {
     printf("Firmware directory: %s\n", firmware_dir);
 
     while (g_running) {
-        struct sockaddr_in client_addr;
+        struct sockaddr_storage client_addr;
         socklen_t client_len = sizeof(client_addr);
         int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_len);
         if (client_fd < 0) {
             break;
         }
 
-        printf("Connection from %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        char client_host[INET6_ADDRSTRLEN] = "?";
+        char client_port[8] = "?";
+        getnameinfo((struct sockaddr *)&client_addr, client_len, client_host, sizeof(client_host), client_port,
+                    sizeof(client_port), NI_NUMERICHOST | NI_NUMERICSERV);
+        printf("Connection from %s:%s\n", client_host, client_port);
 
         /* Peek the first byte to tell a browser WebSocket client (HTTP "GET" /
          * "OPTIONS" preflight) from a raw-TCP CLI/Android client (TDFU magic,

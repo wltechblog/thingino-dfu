@@ -44,9 +44,18 @@ function crc32(bytes) {
  * is plain HTTP (LNA can't exempt ws://). */
 function normalizeUrl(url) {
     url = (url || '').trim();
-    if (url.startsWith('ws://')) return 'http://' + url.slice(5);
-    if (url.startsWith('wss://')) return 'https://' + url.slice(6);
-    if (!/^https?:\/\//.test(url)) return 'http://' + url;
+    if (url.startsWith('ws://')) url = 'http://' + url.slice(5);
+    else if (url.startsWith('wss://')) url = 'https://' + url.slice(6);
+    if (!/^https?:\/\//.test(url)) {
+        /* A bare IPv6 literal has to be bracketed or the URL parser reads its
+         * first colon as the port separator. Two or more colons means a v6
+         * literal, since a bare host[:port] can only hold one. Pairing a
+         * literal with a port is ambiguous unbracketed, so that case is the
+         * user's to write as [addr]:port. */
+        if (url.indexOf(':') !== url.lastIndexOf(':') && url[0] !== '[')
+            url = '[' + url + ']';
+        url = 'http://' + url;
+    }
     return url;
 }
 
