@@ -132,6 +132,13 @@
         /* Opt-in help balloons (toggled by the ? button / Settings; off by default) */
         #btn-help.help-active { color: #fff; background-color: #6c757d; border-color: #6c757d; }
         body.help-on [data-help] { cursor: help; }
+        /* Bootstrap gives a disabled .btn pointer-events:none, which also hides it
+           from the elementFromPoint the balloons use -- so the hints would skip
+           exactly the controls a reader most wants explained: Bootstrap, Write,
+           Read and Diag all start disabled, before a device is connected. Hand
+           pointer events back while help is on. A disabled control still fires
+           no click, so nothing but the balloon changes. */
+        body.help-on [data-help]:disabled { pointer-events: auto; }
         .help-balloon {
             position: fixed; z-index: 1100; max-width: 260px;
             background: #fffdf0; color: #1a1a1a;
