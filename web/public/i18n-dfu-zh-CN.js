@@ -5,7 +5,6 @@ I18N.add("zh-CN", {
   header_full: " 适用于 Ingenic 的 Thingino 网页烧录工具",
   header_short: " Thingino 烧录工具",
   title_mode: "当前后端",
-  title_help_toggle: "切换帮助气泡",
   title_settings: "设置",
   title_settings_busy: "请先完成当前操作，再更改设置",
   op_warning: "操作进行期间，请勿断开设备连接或离开此页面",
@@ -79,7 +78,7 @@ I18N.add("zh-CN", {
   setting_remote_label: "远程守护进程 - dfu-remote（HTTP）",
   ph_remote_token: "认证令牌（可选）",
   remote_lna_note: "Chrome 会弹出一次提示，以允许访问本地网络。",
-  setting_help_label: '显示帮助提示：将鼠标悬停在任意控件上即可显示气泡（或使用 <i class="bi bi-question-lg"></i> 按钮）',
+  setting_help_label: "显示帮助提示：将鼠标悬停在任意控件上即可查看提示。",
   setting_verify_label: "写入后校验（读回并比对）",
   setting_debug_label: "调试日志（详细诊断信息）",
   setting_advanced_label: "在主界面显示“高级”（自定义 SPL / U-Boot）",
@@ -93,6 +92,21 @@ I18N.add("zh-CN", {
   title_close: "关闭",
   btn_copy: "复制",
   btn_close: "关闭",
+
+  // about dialog (the info button in the header)
+  about_title: "关于",
+  about_what: "本页通过 USB 直接从浏览器把 thingino 固件写入 Ingenic 摄像头。WebUSB 直接与芯片的 bootrom 通信，无需安装任何东西，固件文件也始终不离开你的电脑。",
+  about_project: "thingino 是面向基于 Ingenic 芯片的 IP 摄像头的自由开源固件，由志愿者社区共同维护。",
+  about_caution: "刷入新固件可能导致摄像头无法使用。开始之前请阅读你的摄像头对应的 wiki 页面，并备份原始固件。",
+  about_hints: "可在设置中开启所有控件的悬停提示。",
+  about_links: "项目链接",
+  about_site: "thingino 项目网站",
+  about_wiki: "文档与摄像头 wiki",
+  about_firmware: "thingino 固件源码",
+  about_telegram: "Telegram 群组",
+  about_discord: "Discord 服务器",
+  about_source: "本刷写工具的源代码",
+  about_version: "刷写工具版本",
 
   // Windows driver help dialog
   win_title: "Windows 驱动安装",
@@ -112,7 +126,7 @@ I18N.add("zh-CN", {
   // help balloons (data-help keys)
   help_status_badge: "当前状态：空闲、正在连接、正在引导、正在写入、正在读取、就绪或错误。它会实时跟踪烧录工具当前正在执行的操作。",
   help_mode_indicator: "当前后端。DFU = 直接通过 WebUSB 从本浏览器烧录。远程 = 驱动另一台机器上的 dfu-remote 守护进程。可在“设置”中切换。",
-  help_help_button: "帮助模式。开启后，将鼠标悬停在任意控件上即可显示解释气泡。再次点击即可关闭；在你再次开启之前，它会一直保持关闭。",
+  help_about: "关于本刷写工具、它做什么，以及项目在哪里。",
   help_settings_button: "设置：选择烧录后端（浏览器内的 WebUSB 或远程的 dfu-remote 守护进程），并切换这些帮助提示。",
   help_connect: "连接处于 USB 启动（bootrom）模式的设备，它会枚举为 a108:c309。这里没有任何设备？设备可能还未进入 bootrom（按住其启动引脚 / 短接，然后再上电）。",
   help_bootstrap: "通过 USB 将 U-Boot 加载到 bootrom 设备上，使其成为 DFU 烧录目标。只需执行一次；之后“写入固件”和“读取固件”按钮就会变为可用。",

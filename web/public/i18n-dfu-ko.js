@@ -8,7 +8,6 @@ I18N.add("ko", {
   header_full: " Ingenic용 Thingino 웹 플래셔",
   header_short: " Thingino 플래셔",
   title_mode: "활성 백엔드",
-  title_help_toggle: "도움말 풍선 켜기/끄기",
   title_settings: "설정",
   title_settings_busy: "설정을 변경하기 전에 진행 중인 작업을 완료하세요",
   op_warning: "이 작업 중에는 장치를 분리하거나 페이지를 벗어나지 마세요",
@@ -82,7 +81,7 @@ I18N.add("ko", {
   setting_remote_label: "원격 데몬 - dfu-remote (HTTP)",
   ph_remote_token: "인증 토큰 (선택 사항)",
   remote_lna_note: "Chrome에서 로컬 네트워크 접근을 허용할지 한 번 물어봅니다.",
-  setting_help_label: '도움말 힌트 표시: 컨트롤 위에 마우스를 올리면 풍선이 나타납니다 (또는 <i class="bi bi-question-lg"></i> 버튼 사용)',
+  setting_help_label: "도움말 힌트 표시: 아무 컨트롤에나 마우스를 올리면 힌트가 표시됩니다.",
   setting_verify_label: "기록 후 검증 (다시 읽어 비교)",
   setting_debug_label: "디버그 로깅 (상세 진단)",
   setting_advanced_label: "메인 화면에 고급(사용자 지정 SPL / U-Boot) 표시",
@@ -96,6 +95,21 @@ I18N.add("ko", {
   title_close: "닫기",
   btn_copy: "복사",
   btn_close: "닫기",
+
+  // about dialog (the info button in the header)
+  about_title: "정보",
+  about_what: "이 페이지는 브라우저에서 USB로 Ingenic 카메라에 thingino 펌웨어를 직접 씁니다. WebUSB가 칩의 bootrom과 곧바로 통신하므로 설치할 것이 없고, 펌웨어 파일이 컴퓨터 밖으로 나가지도 않습니다.",
+  about_project: "thingino는 Ingenic 기반 IP 카메라를 위한 자유 오픈소스 펌웨어로, 자원봉사자 커뮤니티가 만듭니다.",
+  about_caution: "새 펌웨어를 쓰면 카메라가 동작하지 않게 될 수 있습니다. 시작하기 전에 사용 중인 카메라의 위키 문서를 읽고 원래 플래시를 백업하세요.",
+  about_hints: "모든 컨트롤의 마우스 오버 힌트는 설정에서 켤 수 있습니다.",
+  about_links: "프로젝트 링크",
+  about_site: "thingino 프로젝트 사이트",
+  about_wiki: "문서 및 카메라 위키",
+  about_firmware: "thingino 펌웨어 소스",
+  about_telegram: "텔레그램 그룹",
+  about_discord: "디스코드 서버",
+  about_source: "이 플래셔의 소스",
+  about_version: "플래셔 버전",
 
   // Windows driver help dialog
   win_title: "Windows 드라이버 설정",
@@ -115,7 +129,7 @@ I18N.add("ko", {
   // help balloons (data-help keys)
   help_status_badge: "현재 상태: 대기, 연결 중, 부트스트랩 중, 기록 중, 읽는 중, 준비됨 또는 오류. 플래셔가 지금 무엇을 하고 있는지 표시합니다.",
   help_mode_indicator: "활성 백엔드. DFU = 이 브라우저에서 WebUSB로 직접 플래싱. 원격 = 다른 컴퓨터의 dfu-remote 데몬을 제어. 설정에서 전환할 수 있습니다.",
-  help_help_button: "도움말 모드. 켜져 있는 동안 컨트롤 위에 마우스를 올리면 설명 풍선이 나타납니다. 다시 클릭하면 꺼지며, 다시 켜기 전까지 꺼진 상태로 유지됩니다.",
+  help_about: "이 플래셔가 무엇을 하고 프로젝트가 어디에 있는지.",
   help_settings_button: "설정: 플래싱 백엔드(브라우저 내 WebUSB 또는 원격 dfu-remote 데몬)를 선택하고 이 도움말 힌트를 켜거나 끕니다.",
   help_connect: "USB 부팅(bootrom) 모드에 있는 장치에 연결합니다. a108:c309로 인식됩니다. 아무것도 보이지 않나요? 장치가 아직 bootrom 상태가 아닐 수 있습니다 (부팅 핀을 누르거나 단락시킨 후 전원을 켜세요).",
   help_bootstrap: "USB를 통해 bootrom 장치에 U-Boot를 로드하여 DFU 플래싱 대상으로 만듭니다. 한 번만 수행하면 이후 기록/읽기가 활성화됩니다.",

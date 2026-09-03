@@ -8,7 +8,6 @@ I18N.add("nl", {
   header_full: " Thingino Webflasher voor Ingenic",
   header_short: " Thingino Flasher",
   title_mode: "Actieve backend",
-  title_help_toggle: "Hulpballonnen in-/uitschakelen",
   title_settings: "Instellingen",
   title_settings_busy: "Voltooi de huidige bewerking voordat u instellingen wijzigt",
   op_warning: "Koppel het apparaat niet los en verlaat deze pagina niet tijdens deze bewerking",
@@ -82,7 +81,7 @@ I18N.add("nl", {
   setting_remote_label: "Externe daemon - dfu-remote (HTTP)",
   ph_remote_token: "authenticatietoken (optioneel)",
   remote_lna_note: "Chrome vraagt eenmalig om toegang tot het lokale netwerk toe te staan.",
-  setting_help_label: 'Hulptips tonen: beweeg de muis over een besturingselement voor een ballon (of gebruik de knop <i class="bi bi-question-lg"></i>)',
+  setting_help_label: "Hulptips tonen: beweeg over een element voor een tip.",
   setting_verify_label: "Verificatie na het schrijven (teruglezen en vergelijken)",
   setting_debug_label: "Foutopsporingslogboek (uitgebreide diagnostiek)",
   setting_advanced_label: "Geavanceerd (aangepaste SPL / U-Boot) in de hoofdweergave tonen",
@@ -96,6 +95,21 @@ I18N.add("nl", {
   title_close: "Sluiten",
   btn_copy: "Kopiëren",
   btn_close: "Sluiten",
+
+  // about dialog (the info button in the header)
+  about_title: "Over",
+  about_what: "Deze pagina schrijft thingino-firmware via USB naar een Ingenic-camera, rechtstreeks vanuit je browser. WebUSB praat direct met de bootrom van de chip, dus er is niets te installeren en het firmwarebestand verlaat je computer nooit.",
+  about_project: "thingino is vrije, opensource firmware voor IP-camera's op Ingenic-chips, gemaakt door een gemeenschap van vrijwilligers.",
+  about_caution: "Nieuwe firmware flashen kan een camera onbruikbaar maken. Lees de wikipagina van je camera en maak een back-up van de originele flash voordat je begint.",
+  about_hints: "Hints bij het zweven over elk element zet je aan in Instellingen.",
+  about_links: "Projectlinks",
+  about_site: "thingino-projectsite",
+  about_wiki: "Documentatie en camerawiki",
+  about_firmware: "Broncode van de thingino-firmware",
+  about_telegram: "Telegram-groep",
+  about_discord: "Discord-server",
+  about_source: "Broncode van deze flasher",
+  about_version: "Flasherversie",
 
   // Windows driver help dialog
   win_title: "Windows-stuurprogramma instellen",
@@ -115,7 +129,7 @@ I18N.add("nl", {
   // help balloons (data-help keys)
   help_status_badge: "Huidige status: Inactief, Verbinden, Bootstrappen, Schrijven, Lezen, Gereed of Fout. Het houdt bij wat de flasher op dit moment doet.",
   help_mode_indicator: "Actieve backend. DFU = rechtstreeks flashen vanuit deze browser via WebUSB. Extern = een dfu-remote-daemon op een andere machine aansturen. Wijzig dit bij Instellingen.",
-  help_help_button: "Hulpmodus. Wanneer deze aanstaat, beweeg je de muis over een besturingselement voor een ballon met uitleg. Klik nogmaals om het uit te schakelen; het blijft uit totdat je erom vraagt.",
+  help_about: "Over deze flasher, wat hij doet en waar het project woont.",
   help_settings_button: "Instellingen: kies de flash-backend (WebUSB in de browser of een externe dfu-remote-daemon) en schakel deze hulptips in of uit.",
   help_connect: "Maakt verbinding met een apparaat dat in USB-boot-modus (bootrom) staat; het wordt herkend als a108:c309. Niets te zien? Dan staat het apparaat waarschijnlijk nog niet in bootrom (houd de boot-pin ingedrukt / sluit kort en schakel het dan in).",
   help_bootstrap: "Laadt U-Boot via USB op het bootrom-apparaat zodat het een DFU-flashdoel wordt. Doe dit één keer; daarna lichten Schrijven/Lezen op.",

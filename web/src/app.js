@@ -1006,8 +1006,6 @@ var _helpBalloon = null, _helpHover = null;
 
 function applyHelpMode() {
     document.body.classList.toggle('help-on', helpMode);
-    var b = document.getElementById('btn-help');
-    if (b) b.classList.toggle('help-active', helpMode);
     var s = document.getElementById('setting-help');
     if (s) s.checked = helpMode;
     // Suppress native title tooltips while help mode is on so they don't double
@@ -1030,7 +1028,19 @@ function setHelp(on) {
     localStorage.setItem('tdfu_help', helpMode ? '1' : '0');
     applyHelpMode();
 }
-function toggleHelp() { setHelp(!helpMode); }
+
+/* About: a plain show/hide of static, already-translated markup. The version
+ * comes off the footer's own span rather than a second read of the wasm, so it
+ * is right whenever the footer is and blank only if the module never came up. */
+function openAbout() {
+    var v = document.getElementById('version-num');
+    var a = document.getElementById('about-version');
+    if (a && v) a.textContent = v.textContent || '\u2026';
+    document.getElementById('about-overlay').classList.remove('d-none');
+}
+function closeAbout() {
+    document.getElementById('about-overlay').classList.add('d-none');
+}
 
 /* Verbose diagnostics — Settings toggle, persisted (replaces the old ?debug). */
 function setDebug(on) {
@@ -1719,7 +1729,7 @@ async function flashFromRelease() {
 
 // Expose handlers referenced by HTML onclick/onchange attributes
 Object.assign(window, { connectDevice, doBootstrap, selectFirmware, firmwareSelected, doRead,
-                        doDiag, closeDiag, copyDiag, toggleHelp, setHelp, setDebug, setVerify, setReboot, setAdvanced, setReleases,
+                        doDiag, closeDiag, copyDiag, openAbout, closeAbout, setHelp, setDebug, setVerify, setReboot, setAdvanced, setReleases,
                         openSettings, closeSettings, openWindowsHelp, closeWindowsHelp, saveSettings, toggleRemoteFields,
                         toggleAdvanced, customSplSelected, customUbootSelected, clearCustomBootloader,
                         selectRemoteDevice, toggleReleases, releaseChanged, flashFromRelease, addExtraFileRow,

@@ -5,7 +5,6 @@ I18N.add("ja", {
   header_full: " Ingenic 向け Thingino Web フラッシャー",
   header_short: " Thingino フラッシャー",
   title_mode: "使用中のバックエンド",
-  title_help_toggle: "ヘルプ吹き出しの表示切り替え",
   title_settings: "設定",
   title_settings_busy: "設定を変更する前に、実行中の操作を完了してください",
   op_warning: "この操作の実行中は、デバイスを取り外したりページを移動したりしないでください",
@@ -79,7 +78,7 @@ I18N.add("ja", {
   setting_remote_label: "リモートデーモン - dfu-remote (HTTP)",
   ph_remote_token: "認証トークン (任意)",
   remote_lna_note: "Chrome がローカルネットワークアクセスの許可を一度確認します。",
-  setting_help_label: 'ヘルプヒントを表示: 任意のコントロールにマウスを合わせると吹き出しが表示されます (または <i class="bi bi-question-lg"></i> ボタンを使用)',
+  setting_help_label: "ヘルプヒントを表示：任意のコントロールにカーソルを合わせるとヒントが表示されます。",
   setting_verify_label: "書き込み後に検証 (読み出して比較)",
   setting_debug_label: "デバッグログ (詳細な診断情報)",
   setting_advanced_label: "メイン画面に「詳細設定」（カスタム SPL / U-Boot）を表示する",
@@ -93,6 +92,21 @@ I18N.add("ja", {
   title_close: "閉じる",
   btn_copy: "コピー",
   btn_close: "閉じる",
+
+  // about dialog (the info button in the header)
+  about_title: "情報",
+  about_what: "このページは、ブラウザから USB 経由で Ingenic カメラに thingino ファームウェアを書き込みます。WebUSB がチップの bootrom と直接やり取りするため、インストールするものはなく、ファームウェアファイルが端末の外に出ることもありません。",
+  about_project: "thingino は Ingenic 系チップの IP カメラ向けの自由でオープンソースなファームウェアで、有志のコミュニティが開発しています。",
+  about_caution: "新しいファームウェアの書き込みは、カメラを使用不能にすることがあります。始める前に、お使いのカメラの wiki ページを読み、元のフラッシュをバックアップしてください。",
+  about_hints: "各コントロールのホバーヒントは設定から有効にできます。",
+  about_links: "プロジェクトのリンク",
+  about_site: "thingino プロジェクトサイト",
+  about_wiki: "ドキュメントとカメラ wiki",
+  about_firmware: "thingino ファームウェアのソース",
+  about_telegram: "Telegram グループ",
+  about_discord: "Discord サーバー",
+  about_source: "この書き込みツールのソース",
+  about_version: "ツールのバージョン",
 
   // Windows driver help dialog
   win_title: "Windows ドライバーのセットアップ",
@@ -112,7 +126,7 @@ I18N.add("ja", {
   // help balloons (data-help keys)
   help_status_badge: "現在のステータス: Idle (待機中)、Connecting (接続中)、Bootstrapping (ブートストラップ中)、Writing (書き込み中)、Reading (読み出し中)、Ready (準備完了)、Error (エラー) のいずれか。フラッシャーが現在行っている動作を示します。",
   help_mode_indicator: "使用中のバックエンドです。DFU = WebUSB 経由でこのブラウザーから直接書き込みます。リモート = 別のマシンで動作する dfu-remote デーモンを操作します。切り替えは設定で行います。",
-  help_help_button: "ヘルプモードです。オンの間は、任意のコントロールにマウスを合わせると説明の吹き出しが表示されます。もう一度クリックするとオフになり、再びオンにするまでオフのままになります。",
+  help_about: "この書き込みツールについて、何をするか、プロジェクトはどこにあるか。",
   help_settings_button: "設定: 書き込みバックエンド (ブラウザー内の WebUSB またはリモートの dfu-remote デーモン) を選択し、これらのヘルプヒントの表示を切り替えます。",
   help_connect: "USB ブート (bootrom) モードのデバイスに接続します。デバイスは a108:c309 として認識されます。何も表示されませんか？おそらくデバイスがまだ bootrom モードになっていません (ブートピンを押し続ける / ショートさせてから電源を入れてください)。",
   help_bootstrap: "bootrom モードのデバイスに USB 経由で U-Boot を読み込み、DFU 書き込みの対象にします。一度実行すれば、その後は書き込み/読み出しが有効になります。",

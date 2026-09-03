@@ -129,8 +129,10 @@
             #log { height: 313px; font-size: 0.7rem; }
         }
 
-        /* Opt-in help balloons (toggled by the ? button / Settings; off by default) */
-        #btn-help.help-active { color: #fff; background-color: #6c757d; border-color: #6c757d; }
+        /* Opt-in help balloons (toggled in Settings; off by default) */
+        /* About dialog: links carry the project's orange, like the image builder's do. */
+        .about-link { color:#ff9e2c; text-decoration:none; display:block; padding:.2rem 0; }
+        .about-link:hover, .about-link:focus { text-decoration:underline; }
         body.help-on [data-help] { cursor: help; }
         /* Bootstrap gives a disabled .btn pointer-events:none, which also hides it
            from the elementFromPoint the balloons use -- so the hints would skip
@@ -173,7 +175,7 @@
             </h2>
             <span id="status-badge" class="badge bg-secondary ms-auto" data-help="help_status_badge">Idle</span>
             <span id="mode-indicator" class="badge bg-info-subtle text-info border border-info-subtle" data-i18n-title="title_mode" data-help="help_mode_indicator">DFU</span>
-            <button id="btn-help" class="btn btn-sm btn-outline-secondary py-0 px-1" onclick="toggleHelp()" data-i18n-title="title_help_toggle" data-help="help_help_button"><i class="bi bi-question-lg"></i></button>
+            <button id="btn-about" class="btn btn-sm btn-outline-secondary py-0 px-1" onclick="openAbout()" data-i18n-title="about_title" data-help="help_about"><i class="bi bi-info-lg"></i></button>
             <span id="btn-settings-wrap"><button id="btn-settings" class="btn btn-sm btn-outline-secondary py-0 px-1" onclick="openSettings()" data-i18n-title="title_settings" data-help="help_settings_button"><i class="bi bi-gear"></i></button></span>
         </div>
 
@@ -394,7 +396,7 @@
             <hr class="my-2">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="setting-help" onchange="setHelp(this.checked)">
-                <label class="form-check-label" for="setting-help" data-i18n-html="setting_help_label">Show help hints: hover any control for a balloon (or use the <i class="bi bi-question-lg"></i> button)</label>
+                <label class="form-check-label" for="setting-help" data-i18n="setting_help_label">Show help hints: hover any control for a tip.</label>
             </div>
             <div class="form-check form-switch" data-help="help_setting_debug">
                 <input class="form-check-input" type="checkbox" id="setting-debug" onchange="setDebug(this.checked)">
@@ -404,6 +406,37 @@
         <div class="card-footer d-flex justify-content-end gap-2">
             <button class="btn btn-outline-secondary btn-sm" onclick="closeSettings()" data-i18n="btn_cancel">Cancel</button>
             <button class="btn btn-outline-primary btn-sm" onclick="saveSettings()" data-i18n="btn_save">Save</button>
+        </div>
+    </div>
+</div>
+
+<!-- About: what this flasher is, plus where the project lives. Static markup
+     rather than a page of its own, because every string here is already carried
+     by the dictionaries, so I18N.apply() translates it in place and a language
+     switch re-renders it with the rest of the page. -->
+<div id="about-overlay" class="d-none" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1050; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <div class="card" style="width: 100%; max-width: 520px; max-height: 88vh;">
+        <div class="card-header d-flex align-items-center gap-2">
+            <h2 class="card-title mb-0 fs-6"><i class="bi bi-info-circle me-1"></i> <span data-i18n="about_title">About</span></h2>
+            <button type="button" id="about-close-x" class="btn-close btn-close-white ms-auto" onclick="closeAbout()"></button>
+        </div>
+        <div class="card-body small" style="overflow-y: auto;">
+            <p data-i18n="about_what">This page writes thingino firmware to an Ingenic camera over USB.</p>
+            <p data-i18n="about_project">thingino is free, open-source firmware for Ingenic-based IP cameras.</p>
+            <p class="muted mb-3"><i class="bi bi-exclamation-triangle me-1"></i><span data-i18n="about_caution">Flashing firmware can brick a camera.</span></p>
+            <p class="muted"><i class="bi bi-lightbulb me-1"></i><span data-i18n="about_hints">Hover hints for every control can be switched on in Settings.</span></p>
+            <p class="muted mb-1" data-i18n="about_links">Project links</p>
+            <a class="about-link" href="https://thingino.com/" target="_blank" rel="noopener"><i class="bi bi-globe me-2"></i><span data-i18n="about_site">thingino project site</span></a>
+            <a class="about-link" href="https://github.com/themactep/thingino-firmware/wiki" target="_blank" rel="noopener"><i class="bi bi-journal-text me-2"></i><span data-i18n="about_wiki">Documentation and camera wiki</span></a>
+            <a class="about-link" href="https://github.com/themactep/thingino-firmware" target="_blank" rel="noopener"><i class="bi bi-github me-2"></i><span data-i18n="about_firmware">thingino firmware source</span></a>
+            <a class="about-link" href="https://t.me/thingino" target="_blank" rel="noopener"><i class="bi bi-telegram me-2"></i><span data-i18n="about_telegram">Telegram group</span></a>
+            <a class="about-link" href="https://discord.gg/xDmqS944zr" target="_blank" rel="noopener"><i class="bi bi-discord me-2"></i><span data-i18n="about_discord">Discord server</span></a>
+            <a class="about-link" href="https://github.com/wltechblog/thingino-dfu" target="_blank" rel="noopener"><i class="bi bi-code-slash me-2"></i><span data-i18n="about_source">This flasher's source</span></a>
+        </div>
+        <div class="card-footer d-flex align-items-center gap-2">
+            <!-- Filled from the footer's own span, which the wasm sets once it is up. -->
+            <span class="small muted"><span data-i18n="about_version">Flasher version</span> <code id="about-version">…</code></span>
+            <button class="btn btn-outline-secondary btn-sm ms-auto" onclick="closeAbout()" data-i18n="btn_close">Close</button>
         </div>
     </div>
 </div>

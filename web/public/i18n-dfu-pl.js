@@ -8,7 +8,6 @@ I18N.add("pl", {
   header_full: " Programator webowy Thingino dla Ingenic",
   header_short: " Programator Thingino",
   title_mode: "Aktywny backend",
-  title_help_toggle: "Przełącz dymki pomocy",
   title_settings: "Ustawienia",
   title_settings_busy: "Zakończ bieżącą operację przed zmianą ustawień",
   op_warning: "Nie odłączaj urządzenia ani nie opuszczaj strony podczas tej operacji",
@@ -82,7 +81,7 @@ I18N.add("pl", {
   setting_remote_label: "Zdalny demon - dfu-remote (HTTP)",
   ph_remote_token: "token uwierzytelniania (opcjonalny)",
   remote_lna_note: "Chrome jednorazowo poprosi o zezwolenie na dostęp do sieci lokalnej.",
-  setting_help_label: 'Pokaż wskazówki pomocy: najedź kursorem na dowolny element sterujący, aby zobaczyć dymek (lub użyj przycisku <i class="bi bi-question-lg"></i>)',
+  setting_help_label: "Pokaż podpowiedzi: najedź na dowolny element, aby zobaczyć wskazówkę.",
   setting_verify_label: "Weryfikacja po zapisie (ponowny odczyt i porównanie)",
   setting_debug_label: "Rejestrowanie debugowania (szczegółowa diagnostyka)",
   setting_advanced_label: "Pokaż Zaawansowane (własny SPL / U-Boot) w widoku głównym",
@@ -96,6 +95,21 @@ I18N.add("pl", {
   title_close: "Zamknij",
   btn_copy: "Kopiuj",
   btn_close: "Zamknij",
+
+  // about dialog (the info button in the header)
+  about_title: "O programie",
+  about_what: "Ta strona zapisuje oprogramowanie thingino na kamerze Ingenic przez USB, prosto z przeglądarki. WebUSB rozmawia bezpośrednio z bootromem układu, więc nie ma czego instalować, a plik firmware nigdy nie opuszcza twojego komputera.",
+  about_project: "thingino to wolne oprogramowanie o otwartym kodzie dla kamer IP opartych na układach Ingenic, tworzone przez społeczność wolontariuszy.",
+  about_caution: "Wgranie nowego firmware'u może unieruchomić kamerę. Przeczytaj stronę wiki swojej kamery i zrób kopię jej oryginalnej pamięci flash, zanim zaczniesz.",
+  about_hints: "Podpowiedzi po najechaniu na dowolny element można włączyć w Ustawieniach.",
+  about_links: "Linki projektu",
+  about_site: "Strona projektu thingino",
+  about_wiki: "Dokumentacja i wiki kamer",
+  about_firmware: "Źródła firmware'u thingino",
+  about_telegram: "Grupa na Telegramie",
+  about_discord: "Serwer Discord",
+  about_source: "Kod tego narzędzia",
+  about_version: "Wersja narzędzia",
 
   // Windows driver help dialog
   win_title: "Konfiguracja sterownika Windows",
@@ -115,7 +129,7 @@ I18N.add("pl", {
   // help balloons (data-help keys)
   help_status_badge: "Bieżący status: Bezczynny, Łączenie, Uruchamianie, Zapisywanie, Odczytywanie, Gotowy lub Błąd. Pokazuje, co programator robi w danej chwili.",
   help_mode_indicator: "Aktywny backend. DFU = flashowanie bezpośrednio z tej przeglądarki przez WebUSB. Zdalny = sterowanie demonem dfu-remote na innej maszynie. Przełącz w Ustawieniach.",
-  help_help_button: "Tryb pomocy. Gdy jest włączony, najedź kursorem na dowolny element sterujący, aby zobaczyć dymek z wyjaśnieniem. Kliknij ponownie, aby go wyłączyć; pozostanie wyłączony, dopóki go ponownie nie włączysz.",
+  help_about: "O tym narzędziu do wgrywania, co robi i gdzie mieszka projekt.",
   help_settings_button: "Ustawienia: wybierz backend flashowania (WebUSB w przeglądarce lub zdalny demon dfu-remote) oraz włącz lub wyłącz te wskazówki pomocy.",
   help_connect: "Łączy się z urządzeniem w trybie USB-boot (bootrom); w systemie pojawia się jako a108:c309. Nic tu nie ma? Urządzenie prawdopodobnie nie jest jeszcze w trybie bootrom (przytrzymaj pin rozruchowy / zewrzyj styki, a następnie włącz zasilanie).",
   help_bootstrap: "Ładuje U-Boot na urządzenie w trybie bootrom przez USB, dzięki czemu staje się ono celem flashowania DFU. Zrób to raz; potem opcje Zapisz/Odczytaj staną się aktywne.",

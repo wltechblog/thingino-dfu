@@ -8,7 +8,6 @@ I18N.add("en", {
   header_full: " Thingino Web Flasher for Ingenic",
   header_short: " Thingino Flasher",
   title_mode: "Active backend",
-  title_help_toggle: "Toggle help balloons",
   title_settings: "Settings",
   title_settings_busy: "Finish the current operation before changing settings",
   op_warning: "Do not disconnect the device or navigate away during this operation",
@@ -82,7 +81,7 @@ I18N.add("en", {
   setting_remote_label: "Remote daemon - dfu-remote (HTTP)",
   ph_remote_token: "auth token (optional)",
   remote_lna_note: "Chrome will prompt once to allow local-network access.",
-  setting_help_label: 'Show help hints: hover any control for a balloon (or use the <i class="bi bi-question-lg"></i> button)',
+  setting_help_label: "Show help hints: hover any control for a tip.",
   setting_verify_label: "Verify after write (read back and compare)",
   setting_reboot_label: "Reboot after flashing (boot into the new image)",
   setting_debug_label: "Debug logging (verbose diagnostics)",
@@ -97,6 +96,21 @@ I18N.add("en", {
   title_close: "Close",
   btn_copy: "Copy",
   btn_close: "Close",
+
+  // about dialog (the info button in the header)
+  about_title: "About",
+  about_what: "This page writes thingino firmware to an Ingenic camera over USB, straight from your browser. WebUSB talks to the chip's bootrom directly, so there is nothing to install and the firmware file never leaves your machine.",
+  about_project: "thingino is free, open-source firmware for Ingenic-based IP cameras, built by a community of volunteers.",
+  about_caution: "Flashing new firmware can leave a camera unusable. Read your camera's wiki page and back up its original flash before you start.",
+  about_hints: "Hover hints for every control can be switched on in Settings.",
+  about_links: "Project links",
+  about_site: "thingino project site",
+  about_wiki: "Documentation and camera wiki",
+  about_firmware: "thingino firmware source",
+  about_telegram: "Telegram group",
+  about_discord: "Discord server",
+  about_source: "This flasher's source",
+  about_version: "Flasher version",
 
   // Windows driver help dialog
   win_title: "Windows Driver Setup",
@@ -116,7 +130,7 @@ I18N.add("en", {
   // help balloons (data-help keys)
   help_status_badge: "Current status: Idle, Connecting, Bootstrapping, Writing, Reading, Ready, or Error. It tracks what the flasher is doing right now.",
   help_mode_indicator: "Active backend. DFU = flash straight from this browser over WebUSB. Remote = drive a dfu-remote daemon on another machine. Switch it in Settings.",
-  help_help_button: "Help mode. While it's on, hover any control for a balloon explaining it. Click again to turn it off, it stays off until you ask for it.",
+  help_about: "About this flasher, what it does and where the project lives.",
   help_settings_button: "Settings: pick the flashing backend (in-browser WebUSB or a remote dfu-remote daemon) and toggle these help hints.",
   help_connect: "Connects to a device sitting in USB-boot (bootrom) mode, it enumerates as a108:c309. Nothing here? The device probably isn't in bootrom yet (hold its boot pin / short, then power on).",
   help_bootstrap: "Loads U-Boot onto the bootrom device over USB so it becomes a DFU flashing target. Do this once; afterward Write/Read light up.",

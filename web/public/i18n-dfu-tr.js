@@ -8,7 +8,6 @@ I18N.add("tr", {
   header_full: " Ingenic için Thingino Web Flash Aracı",
   header_short: " Thingino Flash Aracı",
   title_mode: "Etkin arka uç",
-  title_help_toggle: "Yardım balonlarını aç/kapat",
   title_settings: "Ayarlar",
   title_settings_busy: "Ayarları değiştirmeden önce geçerli işlemi tamamlayın",
   op_warning: "Bu işlem sırasında cihazın bağlantısını kesmeyin veya sayfadan ayrılmayın",
@@ -82,7 +81,7 @@ I18N.add("tr", {
   setting_remote_label: "Uzak daemon - dfu-remote (HTTP)",
   ph_remote_token: "kimlik doğrulama belirteci (isteğe bağlı)",
   remote_lna_note: "Chrome, yerel ağ erişimine izin vermeniz için bir kez soracaktır.",
-  setting_help_label: 'Yardım ipuçlarını göster: balon görmek için herhangi bir kontrolün üzerine gelin (veya <i class="bi bi-question-lg"></i> düğmesini kullanın)',
+  setting_help_label: "Yardım ipuçlarını göster: ipucu için herhangi bir kontrolün üzerine gelin.",
   setting_verify_label: "Yazma sonrası doğrulama (geri okuma ve karşılaştırma)",
   setting_debug_label: "Hata ayıklama günlüğü (ayrıntılı tanılama)",
   setting_advanced_label: "Gelişmiş (özel SPL / U-Boot) bölümünü ana görünümde göster",
@@ -96,6 +95,21 @@ I18N.add("tr", {
   title_close: "Kapat",
   btn_copy: "Kopyala",
   btn_close: "Kapat",
+
+  // about dialog (the info button in the header)
+  about_title: "Hakkında",
+  about_what: "Bu sayfa, thingino donanım yazılımını USB üzerinden bir Ingenic kameraya doğrudan tarayıcınızdan yazar. WebUSB yongaların bootrom'uyla doğrudan konuşur; kurulacak bir şey yoktur ve donanım yazılımı dosyası bilgisayarınızdan hiç çıkmaz.",
+  about_project: "thingino, Ingenic tabanlı IP kameralar için özgür ve açık kaynaklı bir yazılımdır, gönüllülerden oluşan bir topluluk tarafından geliştirilir.",
+  about_caution: "Yeni yazılım yüklemek kamerayı kullanılamaz hale getirebilir. Başlamadan önce kameranızın wiki sayfasını okuyun ve özgün flash içeriğini yedekleyin.",
+  about_hints: "Her kontrolün üzerine gelince çıkan ipuçları Ayarlar'dan açılabilir.",
+  about_links: "Proje bağlantıları",
+  about_site: "thingino proje sitesi",
+  about_wiki: "Belgeler ve kamera wiki'si",
+  about_firmware: "thingino yazılım kaynak kodu",
+  about_telegram: "Telegram grubu",
+  about_discord: "Discord sunucusu",
+  about_source: "Bu yazma aracının kaynağı",
+  about_version: "Araç sürümü",
 
   // Windows driver help dialog
   win_title: "Windows Sürücü Kurulumu",
@@ -115,7 +129,7 @@ I18N.add("tr", {
   // help balloons (data-help keys)
   help_status_badge: "Geçerli durum: Boşta, Bağlanıyor, Önyükleniyor, Yazılıyor, Okunuyor, Hazır veya Hata. Flash aracının şu anda ne yaptığını gösterir.",
   help_mode_indicator: "Etkin arka uç. DFU = doğrudan bu tarayıcıdan WebUSB üzerinden flash yapar. Uzak = başka bir makinede çalışan bir dfu-remote daemon'ını kullanır. Ayarlar'dan değiştirin.",
-  help_help_button: "Yardım modu. Açıkken, açıklayan bir balon görmek için herhangi bir kontrolün üzerine gelin. Kapatmak için tekrar tıklayın; siz isteyene kadar kapalı kalır.",
+  help_about: "Bu yazma aracı hakkında: ne yapar ve proje nerede yaşar.",
   help_settings_button: "Ayarlar: flash arka ucunu seçin (tarayıcı içi WebUSB veya uzak bir dfu-remote daemon'ı) ve bu yardım ipuçlarını açıp kapatın.",
   help_connect: "USB-boot (bootrom) modunda bekleyen bir cihaza bağlanır; a108:c309 olarak görünür. Burada bir şey yok mu? Cihaz muhtemelen henüz bootrom modunda değildir (boot pinini basılı tutun / kısa devre yapın, ardından güç verin).",
   help_bootstrap: "U-Boot'u USB üzerinden bootrom cihazına yükler; böylece bir DFU flash hedefi olur. Bunu bir kez yapın; sonrasında Yaz/Oku etkinleşir.",

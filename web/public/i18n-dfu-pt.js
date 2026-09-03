@@ -5,7 +5,6 @@ I18N.add("pt", {
   header_full: " Gravador Web Thingino para Ingenic",
   header_short: " Gravador Thingino",
   title_mode: "Backend ativo",
-  title_help_toggle: "Alternar balões de ajuda",
   title_settings: "Definições",
   title_settings_busy: "Conclua a operação atual antes de alterar as definições",
   op_warning: "Não desligue o dispositivo nem saia da página durante esta operação",
@@ -79,7 +78,7 @@ I18N.add("pt", {
   setting_remote_label: "Daemon remoto - dfu-remote (HTTP)",
   ph_remote_token: "token de autenticação (opcional)",
   remote_lna_note: "O Chrome irá pedir uma vez autorização para aceder à rede local.",
-  setting_help_label: 'Mostrar dicas de ajuda: passe o cursor sobre qualquer controlo para ver um balão (ou utilize o botão <i class="bi bi-question-lg"></i>)',
+  setting_help_label: "Mostra as dicas de ajuda: passe o cursor sobre qualquer controle para ver uma dica.",
   setting_verify_label: "Verificar após a gravação (reler e comparar)",
   setting_debug_label: "Registo de depuração (diagnósticos detalhados)",
   setting_advanced_label: "Mostrar Avançado (SPL / U-Boot personalizados) na vista principal",
@@ -93,6 +92,21 @@ I18N.add("pt", {
   title_close: "Fechar",
   btn_copy: "Copiar",
   btn_close: "Fechar",
+
+  // about dialog (the info button in the header)
+  about_title: "Sobre",
+  about_what: "Esta página escreve firmware thingino numa câmera Ingenic por USB, diretamente do seu navegador. O WebUSB fala com a bootrom do chip, por isso não há nada para instalar e o ficheiro de firmware nunca sai do seu computador.",
+  about_project: "O thingino é um firmware livre e de código aberto para câmeras IP baseadas em Ingenic, feito por uma comunidade de voluntários.",
+  about_caution: "Gravar um firmware novo pode deixar a câmera inutilizável. Leia a página wiki da sua câmera e faça um backup da flash original antes de começar.",
+  about_hints: "As dicas ao passar o cursor por cada controle podem ser ativadas em Configurações.",
+  about_links: "Links do projeto",
+  about_site: "Site do projeto thingino",
+  about_wiki: "Documentação e wiki das câmeras",
+  about_firmware: "Código-fonte do firmware thingino",
+  about_telegram: "Grupo do Telegram",
+  about_discord: "Servidor do Discord",
+  about_source: "Código desta ferramenta",
+  about_version: "Versão da ferramenta",
 
   // Windows driver help dialog
   win_title: "Configuração do Controlador do Windows",
@@ -112,7 +126,7 @@ I18N.add("pt", {
   // help balloons (data-help keys)
   help_status_badge: "Estado atual: Inativo, A ligar, A inicializar, A gravar, A ler, Pronto ou Erro. Mostra o que o gravador está a fazer neste momento.",
   help_mode_indicator: "Backend ativo. DFU = gravar diretamente a partir deste navegador através de WebUSB. Remoto = controlar um daemon dfu-remote noutra máquina. Altere nas Definições.",
-  help_help_button: "Modo de ajuda. Enquanto estiver ativo, passe o cursor sobre qualquer controlo para ver um balão explicativo. Clique novamente para o desativar; permanece desativado até voltar a ativá-lo.",
+  help_about: "Sobre esta ferramenta de gravação, o que faz e onde vive o projeto.",
   help_settings_button: "Definições: escolha o backend de gravação (WebUSB no navegador ou um daemon dfu-remote remoto) e ative ou desative estas dicas de ajuda.",
   help_connect: "Liga-se a um dispositivo em modo USB-boot (bootrom); é enumerado como a108:c309. Não aparece nada? Provavelmente o dispositivo ainda não está em bootrom (mantenha premido o pino de arranque ou faça um curto-circuito e depois ligue a alimentação).",
   help_bootstrap: "Carrega o U-Boot no dispositivo em bootrom através de USB para que se torne um alvo de gravação DFU. Faça isto uma vez; depois Gravar/Ler ficam ativos.",
