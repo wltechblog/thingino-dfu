@@ -1727,6 +1727,37 @@ async function flashFromRelease() {
 /*  Init                                                               */
 /* ------------------------------------------------------------------ */
 
+/* Every overlay closes the two ways a dialog is expected to, on top of its own
+ * buttons: Escape, and a click on the dimmed backdrop rather than on the card.
+ * Driven from one table so a new overlay gets both by adding a line here
+ * instead of by copying a pair of handlers.
+ *
+ * All four close functions are pure hides. Settings persists through
+ * saveSettings(), so dismissing it this way discards, which is what Escape is
+ * expected to do. */
+var OVERLAYS = [
+    ['settings-overlay', closeSettings],
+    ['about-overlay', closeAbout],
+    ['diag-overlay', closeDiag],
+    ['windows-help-overlay', closeWindowsHelp],
+];
+
+document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    for (var i = 0; i < OVERLAYS.length; i++) {
+        var el = document.getElementById(OVERLAYS[i][0]);
+        if (el && !el.classList.contains('d-none')) OVERLAYS[i][1]();
+    }
+});
+
+OVERLAYS.forEach(function (entry) {
+    var el = document.getElementById(entry[0]);
+    if (!el) return;
+    // Only a click on the backdrop itself: a click inside the card bubbles up
+    // to the overlay too, and must not be taken for a dismissal.
+    el.addEventListener('click', function (e) { if (e.target === el) entry[1](); });
+});
+
 // Expose handlers referenced by HTML onclick/onchange attributes
 Object.assign(window, { connectDevice, doBootstrap, selectFirmware, firmwareSelected, doRead,
                         doDiag, closeDiag, copyDiag, openAbout, closeAbout, setHelp, setDebug, setVerify, setReboot, setAdvanced, setReleases,
